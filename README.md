@@ -50,7 +50,7 @@ def clean_movie(movie):
     return movie
    ```
   ### Extract Transfer Load Function 
-  
+  The following titles are the steps I took to build the function. 
   #### Reading Files
   Here is the code I used to read the csv and json files:
   
@@ -65,7 +65,7 @@ def clean_movie(movie):
         wiki_movies_raw = json.load(file)
    ```     
   #### Cleaning Wikipedia Data
-  Here are the steps I took to clean the Wikipedia data:
+  Next I cleaned the Wikipedia Data using the following steps:
    - I created a list comprehension to filter out tv shows
    - I used a list comprehension to use the clean_movie function on each movie
    - I dropped any imdb_id duplicate entries using regular expressions
@@ -190,7 +190,7 @@ def clean_movie(movie):
     wiki_movies_df.drop('Running time', axis=1, inplace=True)  
    ```  
   #### Cleaning Kaggle Data
-  Here is the code I used to clean the Kaggle data:
+  After cleaning the Wikipedia data, I cleaned the Kaggle data:
    - I fixed the data types of multiple columns
    - I dropped adult films from the database
    
@@ -203,7 +203,7 @@ def clean_movie(movie):
     kaggle_metadata['release_date'] = pd.to_datetime(kaggle_metadata['release_date'])
    ```
   #### Merging Wikipedia and Kaggle Data
-  I merged the two dataframes, dropped redundant columns, filled in any missing data and renamed the columns.
+  Then, I merged the two dataframes, dropped redundant columns, filled in any missing data and renamed the columns.
   
    ```python 
    movies_df = pd.merge(wiki_movies_df, kaggle_metadata, on='imdb_id', suffixes=['_wiki','_kaggle'])
@@ -249,7 +249,7 @@ def clean_movie(movie):
 
    ```
   #### Cleaning Ratings Data
-  I cleaned the ratings data by pivoting the columns. Then, I merged it with the Wikipedia and Kaggle Data.
+  Next, I cleaned the ratings data by pivoting the columns. Then, I merged it with the Wikipedia and Kaggle Data.
   
   ```python 
     ratings['timestamp'] = pd.to_datetime(ratings['timestamp'], unit='s')

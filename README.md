@@ -53,6 +53,7 @@ def clean_movie(movie):
   
   #### Reading Files
   Here is the code I used to read the csv and json files:
+  
   ```python
   def extract_transform_load(wiki_file, kaggle_file, ratings_file):
     #Read in the kaggle metadata and MovieLens ratings CSV files as Pandas DataFrames.
@@ -74,6 +75,7 @@ def clean_movie(movie):
       - Budget
       - Release Date Column
       - Running Time Column
+      
    ```python 
    #Write a list comprehension to filter out TV shows.
     wiki_movies = [movie for movie in wiki_movies_raw
@@ -191,6 +193,7 @@ def clean_movie(movie):
   Here is the code I used to clean the Kaggle data:
    - I fixed the data types of multiple columns
    - I dropped adult films from the database
+   
    ```python 
     kaggle_metadata = kaggle_metadata[kaggle_metadata['adult'] == 'False'].drop('adult',axis='columns')
     kaggle_metadata['video'] = kaggle_metadata['video'] == 'True'
@@ -201,6 +204,7 @@ def clean_movie(movie):
    ```
   #### Merging Wikipedia and Kaggle Data
   I merged the two dataframes, dropped redundant columns, filled in any missing data and renamed the columns.
+  
    ```python 
    movies_df = pd.merge(wiki_movies_df, kaggle_metadata, on='imdb_id', suffixes=['_wiki','_kaggle'])
 
@@ -246,6 +250,7 @@ def clean_movie(movie):
    ```
   #### Cleaning Ratings Data
   I cleaned the ratings data by pivoting the columns. Then, I merged it with the Wikipedia and Kaggle Data.
+  
   ```python 
     ratings['timestamp'] = pd.to_datetime(ratings['timestamp'], unit='s')
     rating_counts = ratings.groupby(['movieId','rating'], as_index=False).count() \
@@ -257,6 +262,7 @@ def clean_movie(movie):
   ```
   #### Sending data to SQL tables
   Finally I uploaded the data to SQL tables using the following code:
+  
   ```python 
     db_string = f"postgres://postgres:{db_password}@127.0.0.1:5432/movie_data"
     engine = create_engine(db_string)

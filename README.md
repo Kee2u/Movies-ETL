@@ -261,7 +261,7 @@ def clean_movie(movie):
     movies_with_ratings_df[rating_counts.columns] = movies_with_ratings_df[rating_counts.columns].fillna(0)
   ```
   #### Sending data to SQL tables
-  Finally I uploaded the data to SQL tables using the following code:
+  Finally, I uploaded the data to SQL tables using the following code:
   
   ```python 
     db_string = f"postgres://postgres:{db_password}@127.0.0.1:5432/movie_data"
